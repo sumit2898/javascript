@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>SETTIME OUT</h1>
+    <button id="stop">Stop</button>
+    <button id="start"> start</button>
+</body>
+<Script>
+    const sayDate = function(name){
+        console.log(`${name} ${Date.now()}`)
+    }
+
+    // Define setInterval outside addEventListener
+    let intervalid;
+
+    document.querySelector('#start').addEventListener('click', function(e){
+        intervalid = setInterval(sayDate, 1000, "sumit");
+    })
+
+    document.querySelector('#stop').addEventListener('click', function(e){
+        clearInterval(intervalid);
+    })
+</Script>
+</html>
