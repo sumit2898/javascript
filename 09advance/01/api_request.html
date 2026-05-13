@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 40%;
+  border-radius: 5px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+  border-radius: 5px 5px 0 0;
+}
+
+.container {
+  padding: 2px 16px;
+}
+
+#cardsContainer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+</style>
+</head>
+<body>
+
+<h2>Round Card</h2>
+
+<div id="cardsContainer"></div>
+
+</body>
+<script>
+    const users = ['hiteshchoudhary', 'sumit2898'];
+    const container = document.getElementById('cardsContainer');
+
+    function makeCard(data) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+            <div class="image">
+                <img src="${data.avatar_url}" alt="Avatar" style="width:100%">
+            </div>
+            <div class="container">
+                <h4 class="name"><b>${data.name}</b></h4> 
+                <p class="bio">${data.bio || 'No bio available'}</p> 
+            </div>
+        `;
+        container.appendChild(card);
+    }
+
+    users.forEach(user => {
+        const xsu = new XMLHttpRequest();
+        const requestUrl = `https://api.github.com/users/${user}`;
+        xsu.open('GET', requestUrl);
+        xsu.onreadystatechange = function(){
+            if(xsu.readyState === 4){
+                const data = JSON.parse(this.responseText);
+                makeCard(data);
+            }
+        }
+        xsu.send();
+    });
+</script>
+</html>
